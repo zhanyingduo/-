@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			nav{
+				width: 100%;
+				height: 50px;
+				line-height: 50px;
+				padding-left: 30px;
+				background: purple;
+				font-size: 20px;
+				font-weight: 700;
+			}
+			nav a{
+				color: white;
+				text-decoration: none;
+			}
+			.box{
+				width: 400px;
+				height: 400px;
+				border: 5px solid #ccc;
+				box-shadow: 2px 2px 2px 2px #666;
+				position: absolute;
+				/*top: 0;
+				left: 0;*/
+				top: 50%;
+				left: 50%;
+				margin-left: -205px;
+				margin-top: -205px;
+			}
+			.box .drap{
+				width: 100%;
+				height: 50px;
+				background: gray;
+				color: white;
+				font-size: 20px;
+				line-height: 50px;
+				cursor: move;
+			}
+			.box .drap span{
+				float: right;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<a href="javascript:;">注册信息</a>
+		</nav>
+		<div class="box" id="box">
+			<div class="drap">
+				注册信息(可以拖拽)
+				<span>【关闭】</span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var drap=box.children[0];
+		drap.onmousedown=function(event){
+			event = event || window.event;//ie 678
+			//记录一下盒子当前的位置
+			var x=event.clientX-box.offsetLeft;
+			var y=event.clientY-box.offsetTop;
+			document.onmousemove=function(event){
+				event = event || window.event;
+				box.style.left=event.clientX-x+205+"px";
+				box.style.top=event.clientY-y+205+"px";
+				window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+			}
+		}
+		document.onmouseup=function(){
+			document.onmousemove=null;
+		}
+	</script>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 400px;
+				height: 10px;
+				background: gray;
+				margin: 100px auto;
+				position: relative;
+			}
+			.box .bar{
+				width: 10px;
+				height: 20px;
+				position: absolute;
+				left: 0;
+				top: -5px;
+				background: red;
+				cursor: pointer;
+			}
+			.box .mask{
+				background: red;
+				height: 10px;
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			p{
+				text-align: center;
+				font-size: 30px;	
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<div class="bar">
+				
+			</div>
+			<!--遮罩层-->
+			<div class="mask">
+				
+			</div>
+		</div>
+		<p id="percent"></p>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var bar=box.children[0];
+		var mask=box.children[1];
+		var percent=document.getElementById("percent");
+		//鼠标放下事件
+		bar.onmousedown=function(event){
+			event=event || window.event;
+			var leftValue=event.clientX-this.offsetLeft;
+			console.log("leftValue="+leftValue);
+			//鼠标移动事件
+			document.onmousemove=function(event){
+				event=event || window.event;
+				var val=event.clientX-leftValue;
+				var realWidth=box.offsetWidth-bar.offsetWidth;
+				if(val<0){
+					val=0;
+				}else if(val>=realWidth){
+					val=realWidth;
+				}
+				console.log("val="+val);
+				bar.style.left=val+"px";
+				mask.style.width=val+"px";
+				//toFixed()方法就是对一个小数
+				//保留小数点位数，传几就是几位小数
+				percent.innerHTML="你已经走了："+(val/realWidth*100).toFixed(2)+"%";
+				//去掉在移动过程中选中的字体
+				window.getSelection?window.getSelection().removeAllRanges():document.selection.empty();
+			}
+		}
+		//当鼠标弹起时，移动事件为空
+		document.onmouseup=function(){
+			document.onmousemove=null;
+		}
+	</script>
+</html>

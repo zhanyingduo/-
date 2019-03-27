@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			img{
+				vertical-align: top;
+			}
+			.box{
+				width: 350px;
+				height: 350px;
+				border: 1px solid black;
+				margin: 100px;
+				position: relative;
+			}
+			.box .small{
+				position: relative;
+			}
+			.box .small .mask{
+				width: 100px;
+				height: 100px;
+				background: rgba(255,255,0,.4);
+				position: absolute;
+				top: 0;
+				left: 0;
+				cursor: move;
+				display: none;
+			}
+			.box .big{
+				width: 450px;
+				height: 450px;
+				border: 1px solid black;
+				position: absolute;
+				top: 0;
+				left: 360px;
+				overflow: hidden;
+				display: none;
+			}
+			.box .big img{
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<div class="small">
+				<img src="../img/001.jpg">
+				<!--遮罩层-->
+				<div class="mask"></div>
+			</div>
+			<div class="big">
+				<img src="../img/0001.jpg" />
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var box=document.getElementById("box");
+		var small=box.children[0];
+		var big=box.children[1];
+		var mask=small.children[1];
+		var bigImg=big.children[0];
+		//鼠标放到大盒子里面，遮罩层和big都显示
+		box.onmouseover=function(){
+			mask.style.display="block";
+			big.style.display="block";
+		}
+		//鼠标移出大盒子时，遮罩层和big都隐藏
+		box.onmouseout=function(){
+			mask.style.display="none";
+			big.style.display="none";
+		}
+		var x=0;//mask在x方向上移动的距离
+		var y=0;//mask在y方向上移动的距离
+		document.onmousemove=function(event){
+			event=event || window.event;
+			x=event.clientX-box.offsetLeft-mask.offsetWidth/2;
+			y=event.clientY-box.offsetTop-mask.offsetHeight/2;
+			if(x<=0){
+				x=0;
+			}else if(x>=small.offsetWidth-mask.offsetWidth){
+				x=small.offsetWidth-mask.offsetWidth;
+			}
+			
+			if(y<=0){
+				y=0;
+			}else if(y>=small.offsetHeight-mask.offsetHeight){
+				y=small.offsetHeight-mask.offsetHeight;
+			}
+			mask.style.left=x+"px";
+			mask.style.top=y+"px";
+			
+			//大图片移动
+			bigImg.style.left=-x*(big.offsetWidth/small.offsetWidth)+"px";
+			bigImg.style.top=-y*(big.offsetHeight/small.offsetHeight)+"px";
+		}
+	</script>
+</html>

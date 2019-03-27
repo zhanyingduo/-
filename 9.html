@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0px;
+			}
+			.box{
+				text-align: center;
+			}
+			.box a{
+				text-decoration: none;
+			}
+			img{
+				position: absolute;
+				top: 50px;
+			}
+			#left{
+				left: 0;
+			}
+			#right{
+				right: 0;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				function hidden(obj1,obj2){
+					obj1.style.display="none";
+					obj2.style.display="none";
+				}
+				function $(id){
+					return document.getElementById(id);
+				}
+				function hidden(id1,id2){
+					$(id1).style.display="none";
+					$(id2).style.display="none";
+				}
+				setTimeout(function(){
+					hidden("left","right");
+				},3*1000)
+			}
+		</script>
+
+	</head>
+	<body>
+		<div class="box">
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<p><a href="#">天王盖地虎</a>考上了985</p>
+			<img src="img/1.gif"  id="left"/>
+			<img src="img/2 (1).gif" id="right" />
+		</div>
+	</body>
+</html>

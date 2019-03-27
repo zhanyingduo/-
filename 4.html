@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.box{
+				width: 600px;
+				height: auto;
+				border: 1px solid gray;
+				margin: 100px auto;
+			}
+			.box textarea{
+				resize: none;
+				width: 580px;
+				margin-left: 10px;
+				margin-top: 10px;
+				height: 78px;
+			}
+			.box button{
+				width: 80px;
+				height: 30px;
+				border: none;
+				color: white;
+				font-weight: 700;
+				background: #ffc09f;
+				border-radius: 2px;
+				margin-left: 510px;
+			}
+			.bo1 ul{
+				list-style: none;
+			}
+			.box ul li{
+				width: 580px;
+				margin-left: 10px;
+				line-height: 30px;
+				border-bottom: 1px dashed gray;
+			}
+			.box ul li a{
+				float: right;
+				text-decoration: none;
+			}
+		</style>
+		<script>
+			window.onload=function(){
+				function $(id){
+					return document.getElementById(id);
+				}
+				var ul=document.createElement("ul");
+				var box=$("box");
+				box.appendChild(ul);
+				$("release").onclick=function(){
+					//获取用户输入的内容
+					var content=$("content").value;
+					if(content==""){
+						alert("发布内容不嫩为空");
+						return ;//结束该方法
+					}
+					//清空文本域里面的内容
+					$("content").value="";
+					var li=document.createElement("li");
+					li.innerHTML=content+"<a href=javascript:;>删除</a>"
+//					ul.appendChild(li);
+					var children=ul.children;
+					if(children.length<0){
+						//第一次向ul里追加元素
+						ul.appendChild(li);
+					}else{
+						ul.insertBefore(li,ul.firstChild);
+					}
+					
+					var as=document.getElementsByTagName("a");
+					for(var i=0;i<as.length;i++){
+						as[i].onclick=function(){
+							ul.removeChild(this.parentNode);
+						}
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="box" id="box">
+			<textarea id="content"></textarea>
+			<button id="release">发布</button>
+			
+		</div>
+	</body>
+</html>
